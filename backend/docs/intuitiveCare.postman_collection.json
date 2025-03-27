@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "API Intuitive Care",
+    "description": "Coleção de endpoints para consulta de dados de operadoras de saúde ativas e suas demonstrações contábeis",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Top Operadoras por Despesas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/top_operadoras?periodo={{periodo}}&trimestre={{trimestre}}&ano={{ano}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "top_operadoras"],
+          "query": [
+            {
+              "key": "periodo",
+              "value": "{{periodo}}",
+              "description": "Período da consulta (ano ou trimestre)"
+            },
+            {
+              "key": "trimestre",
+              "value": "{{trimestre}}",
+              "description": "Trimestre desejado (ex: 1T, 2T, 3T, 4T)"
+            },
+            {
+              "key": "ano",
+              "value": "{{ano}}",
+              "description": "Ano da consulta"
+            }
+          ]
+        },
+        "description": "Retorna as 10 operadoras com maiores despesas em eventos/sinistros de assistência médico-hospitalar"
+      },
+      "response": [
+        {
+          "name": "Sucesso - Trimestre",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/top_operadoras?periodo=trimestre&trimestre=4T&ano=2024",
+              "host": ["{{base_url}}"],
+              "path": ["api", "top_operadoras"],
+              "query": [
+                {"key": "periodo", "value": "trimestre"},
+                {"key": "trimestre", "value": "4T"},
+                {"key": "ano", "value": "2024"}
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {"key": "Content-Type", "value": "application/json; charset=utf-8"}
+          ],
+          "body": "[{\"registro_ans\": \"123456\", \"razao_social\": \"Operadora Exemplo\", \"despesa\": 1500000.50}, ...]"
+        }
+      ]
+    },
+    {
+      "name": "Busca Operadoras",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/busca_operadoras?q={{search_term}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "busca_operadoras"],
+          "query": [
+            {
+              "key": "q",
+              "value": "{{search_term}}",
+              "description": "Termo de busca para nome fantasia ou razão social"
+            }
+          ]
+        },
+        "description": "Realiza busca textual nas operadoras ativas retornando até 10 resultados mais relevantes"
+      },
+      "response": [
+        {
+          "name": "Sucesso - Busca",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/busca_operadoras?q=saúde",
+              "host": ["{{base_url}}"],
+              "path": ["api", "busca_operadoras"],
+              "query": [{"key": "q", "value": "saúde"}]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {"key": "Content-Type", "value": "application/json; charset=utf-8"}
+          ],
+          "body": "[{\"registro_ans\": \"123456\", \"razao_social\": \"Saúde Exemplo\", \"nome_fantasia\": \"Saúde Vida\", \"cnpj\": \"12.345.678/0001-90\", \"uf\": \"SP\", \"cidade\": \"São Paulo\"}]"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "description": "URL base da API"
+    },
+    {
+      "key": "periodo",
+      "value": "trimestre",
+      "description": "Período padrão (ano ou trimestre)"
+    },
+    {
+      "key": "trimestre",
+      "value": "4T",
+      "description": "Trimestre padrão"
+    },
+    {
+      "key": "ano",
+      "value": "2024",
+      "description": "Ano padrão"
+    },
+    {
+      "key": "search_term",
+      "value": "saúde",
+      "description": "Termo de busca padrão"
+    }
+  ]
+}
