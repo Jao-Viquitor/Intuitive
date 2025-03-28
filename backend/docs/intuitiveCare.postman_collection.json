@@ -18,8 +18,13 @@
         ],
         "url": {
           "raw": "{{base_url}}/api/top_operadoras?periodo={{periodo}}&trimestre={{trimestre}}&ano={{ano}}",
-          "host": ["{{base_url}}"],
-          "path": ["api", "top_operadoras"],
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "top_operadoras"
+          ],
           "query": [
             {
               "key": "periodo",
@@ -47,19 +52,36 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/top_operadoras?periodo=trimestre&trimestre=4T&ano=2024",
-              "host": ["{{base_url}}"],
-              "path": ["api", "top_operadoras"],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "top_operadoras"
+              ],
               "query": [
-                {"key": "periodo", "value": "trimestre"},
-                {"key": "trimestre", "value": "4T"},
-                {"key": "ano", "value": "2024"}
+                {
+                  "key": "periodo",
+                  "value": "trimestre"
+                },
+                {
+                  "key": "trimestre",
+                  "value": "4T"
+                },
+                {
+                  "key": "ano",
+                  "value": "2024"
+                }
               ]
             }
           },
           "status": "OK",
           "code": 200,
           "header": [
-            {"key": "Content-Type", "value": "application/json; charset=utf-8"}
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
           ],
           "body": "[{\"registro_ans\": \"123456\", \"razao_social\": \"Operadora Exemplo\", \"despesa\": 1500000.50}, ...]"
         }
@@ -78,8 +100,13 @@
         ],
         "url": {
           "raw": "{{base_url}}/api/busca_operadoras?q={{search_term}}",
-          "host": ["{{base_url}}"],
-          "path": ["api", "busca_operadoras"],
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "busca_operadoras"
+          ],
           "query": [
             {
               "key": "q",
@@ -97,15 +124,28 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/busca_operadoras?q=saúde",
-              "host": ["{{base_url}}"],
-              "path": ["api", "busca_operadoras"],
-              "query": [{"key": "q", "value": "saúde"}]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "busca_operadoras"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "saúde"
+                }
+              ]
             }
           },
           "status": "OK",
           "code": 200,
           "header": [
-            {"key": "Content-Type", "value": "application/json; charset=utf-8"}
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
           ],
           "body": "[{\"registro_ans\": \"123456\", \"razao_social\": \"Saúde Exemplo\", \"nome_fantasia\": \"Saúde Vida\", \"cnpj\": \"12.345.678/0001-90\", \"uf\": \"SP\", \"cidade\": \"São Paulo\"}]"
         }

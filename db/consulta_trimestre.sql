@@ -10,6 +10,6 @@ FROM demonstracoes_contabeis d
 WHERE d.descricao = 'EVENTOS/ SINISTROS CONHECIDOS OU AVISADOS  DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR '
   AND d.trimestre = %s
   AND d.ano = %s
-GROUP BY o.registro_ans, o.razao_social, o.nome_fantasia, o.cnpj
+GROUP BY o.registro_ans, o.razao_social, o.nome_fantasia, o.cnpj, o.uf
 ORDER BY total_despesa DESC
 LIMIT 10;

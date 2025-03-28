@@ -57,7 +57,7 @@ pip install -r backend/requirements.txt
 
 **Passo 3:** Configure as variáveis de ambiente (`.env`):
 
-1. Renomeio o arquivo `example.env` para `.env`
+1. Renomeie o arquivo `example.env` para `.env`
 2. Altere as configurações do `.env`
 
 ```env
@@ -84,27 +84,39 @@ A API estará disponível em `http://localhost:5000`
 
 ### 🔹 **Busca textual de Operadoras**
 
-**GET** `/api/busca_operadoras?q={termo}`
+**GET** `/api/busca_operadoras`
 
-Exemplo de uso:
+**Parâmetros opcionais:**
+- `q` = termo de busca (nome, razão social ou CNPJ)
+- `uf` = estado (ex: SP)
+- `cidade` = nome da cidade (ex: Campinas)
+
+**Exemplos:**
 ```http
-GET http://localhost:5000/api/busca_operadoras?q=AMIL
+GET /api/busca_operadoras?q=amil
+GET /api/busca_operadoras?q=amil&uf=SP
+GET /api/busca_operadoras?q=12345678000100&cidade=São Paulo&uf=SP
 ```
+
+---
 
 ### 🔹 **Top 10 Operadoras (Despesas)**
 
-**GET** `/api/top_operadoras?periodo={ano|trimestre}&ano={ano}&trimestre={trimestre}`
+**GET** `/api/top_operadoras?periodo={ano|trimestre}&ano={ano}&trimestre={trimestre}&uf={uf}`
 
-Exemplos:
+**Parâmetros obrigatórios:**
+- `periodo` = "ano" ou "trimestre"
+- `ano` = ano da análise (ex: 2024)
 
-- **Por ano:**
+**Parâmetros opcionais:**
+- `trimestre` = trimestre (ex: 4T)
+- `uf` = estado (ex: SP)
+
+**Exemplos:**
 ```http
-GET http://localhost:5000/api/top_operadoras?periodo=ano&ano=2024
-```
-
-- **Por trimestre:**
-```http
-GET http://localhost:5000/api/top_operadoras?periodo=trimestre&trimestre=4T&ano=2024
+GET /api/top_operadoras?periodo=ano&ano=2024
+GET /api/top_operadoras?periodo=trimestre&ano=2024&trimestre=4T
+GET /api/top_operadoras?periodo=ano&ano=2024&uf=SP
 ```
 
 ---
@@ -115,14 +127,14 @@ GET http://localhost:5000/api/top_operadoras?periodo=trimestre&trimestre=4T&ano=
 
 ```json
 [
-    {
-        "registro_ans": "123456",
-        "razao_social": "AMIL ASSISTÊNCIA MÉDICA INTERNACIONAL S.A.",
-        "nome_fantasia": "Amil",
-        "cnpj": "00.000.000/0001-00",
-        "uf": "SP",
-        "cidade": "São Paulo"
-    }
+  {
+    "registro_ans": "123456",
+    "razao_social": "AMIL ASSISTÊNCIA MÉDICA INTERNACIONAL S.A.",
+    "nome_fantasia": "Amil",
+    "cnpj": "00.000.000/0001-00",
+    "uf": "SP",
+    "cidade": "São Paulo"
+  }
 ]
 ```
 
@@ -130,13 +142,14 @@ GET http://localhost:5000/api/top_operadoras?periodo=trimestre&trimestre=4T&ano=
 
 ```json
 [
-    {
-        "registro_ans": "123456",
-        "razao_social": "AMIL ASSISTÊNCIA MÉDICA INTERNACIONAL S.A.",
-        "nome_fantasia": "Amil",
-        "cnpj": "00.000.000/0001-00",
-        "total_despesa": 15000000.00
-    }
+  {
+    "registro_ans": "123456",
+    "razao_social": "AMIL ASSISTÊNCIA MÉDICA INTERNACIONAL S.A.",
+    "nome_fantasia": "Amil",
+    "cnpj": "00.000.000/0001-00",
+    "uf": "SP",
+    "total_despesa": 15000000.00
+  }
 ]
 ```
 
@@ -144,7 +157,9 @@ GET http://localhost:5000/api/top_operadoras?periodo=trimestre&trimestre=4T&ano=
 
 ## 📦 Coleção Postman
 
-Uma coleção no Postman está preparada com os exemplos acima para testar facilmente todas as rotas implementadas.
+A coleção Postman foi atualizada e contempla os parâmetros `uf` e `cidade` nos endpoints de busca e de top operadoras:
+
+📄 `backend/docs/intuitiveCare.postman_collection.json`
 
 ---
 
@@ -154,3 +169,6 @@ Uma coleção no Postman está preparada com os exemplos acima para testar facil
 - **Flask**
 - **MySQL**
 - **Postman**
+- **dotenv**
+- **CORS**
+- **JSON + Decimal encoding**
