@@ -1,7 +1,6 @@
 # 🌐 Frontend Intuitive
 
-Este é o frontend do sistema **Intuitive**, uma aplicação web construída em **Vue.js 3 + Vite + Tailwind CSS**, 
-responsável por exibir e interagir com os dados de operadoras de planos de saúde fornecidos pela [API Intuitive](../backend/README.md).
+Este é o frontend do sistema **Intuitive**, uma aplicação web construída com **Vue.js 3 + Vite + Tailwind CSS**, responsável por consultar e exibir dados públicos de operadoras de planos de saúde cadastradas na **ANS**, consumindo os dados expostos pela [API Intuitive](../backend/README.md).
 
 ---
 
@@ -11,12 +10,26 @@ responsável por exibir e interagir com os dados de operadoras de planos de saú
 
 ```
 frontend/
+├── public/
+│   └── favicon.svg
 ├── src/
 │   ├── assets/
+│   │   ├── logo.svg
 │   │   └── tailwind.css
 │   ├── components/
-│   │   ├── BuscaOperadoras.vue
-│   │   └── TopOperadoras.vue
+│   │   ├── cards/OperadoraCard.vue
+│   │   ├── inputs/InputText.vue
+│   │   ├── inputs/InputSelectUF.vue
+│   │   ├── layout/Header.vue
+│   │   └── layout/Footer.vue
+│   ├── pages/
+│   │   ├── Home.vue
+│   │   ├── TopOperadoras.vue
+│   │   └── BuscaOperadoras.vue
+│   ├── services/
+│   │   └── api.js
+│   ├── router/
+│   │   └── index.js
 │   ├── App.vue
 │   └── main.js
 ├── index.html
@@ -27,33 +40,29 @@ frontend/
 
 ---
 
-### 2. ⚙️ Instalação e Setup
+### 2. ⚙️ Instalação e Execução
 
-**Passo 1:** Navegue até a pasta `frontend`
+#### **Passo 1:** Acesse o diretório do frontend
 
 ```bash
 cd frontend
 ```
 
-**Passo 2:** Instale as dependências do projeto
+#### **Passo 2:** Instale as dependências
 
 ```bash
 npm install
 ```
 
-**Passo 3:** xecutar Frontend + Backend juntos
-
-Este projeto está configurado com `concurrently`, permitindo rodar o **frontend Vue.js** e o **backend Flask** com um único comando:
+#### **Passo 3:** Execute Frontend + Backend juntos
 
 ```bash
 npm run dev
 ```
 
-Esse comando:
-
-- Ativa o servidor Flask (API)
-- Inicia a aplicação Vue com Vite (`http://localhost:5173`)
-- Faz a conexão entre frontend e backend automaticamente
+Esse comando utiliza `concurrently` para:
+- Iniciar o backend Flask (`localhost:5000`)
+- Iniciar o frontend Vue (`localhost:5173`)
 
 ---
 
@@ -61,44 +70,49 @@ Esse comando:
 
 ### 🔎 **Busca de Operadoras**
 
-- Campo de busca com retorno dinâmico de operadoras registradas na ANS
-- Cards estilizados com informações como razão social, nome fantasia, CNPJ e localização
+- Campo de busca textual com autocomplete
+- Filtro opcional por estado (UF)
+- Cards reutilizáveis com razão social, nome fantasia, CNPJ e localização
 
 ### 📊 **Top 10 Operadoras por Despesa**
 
-- Consultas por **ano** ou **trimestre**
-- Exibe as operadoras com maior gasto médico-hospitalar
-- Valores formatados e layout responsivo
+- Filtros por **ano**, **trimestre** e **UF**
+- Resultados em ordem decrescente de despesas
+- Apresentação em cards com destaque para valores
 
 ---
 
-## 💅 Estilo e UX
+## 💅 Design e Experiência
 
-- **Tailwind CSS** para estilo limpo, moderno e responsivo
-- Tipografia legível e organização em cards
+- Componentização com **Vue 3 (SFC)**
+- Estilo moderno e responsivo com **Tailwind CSS**
+- Componentes reutilizáveis para inputs, botões e cards
+- Layout global com `Header` e `Footer` consistentes
+
+---
+
+## 🧪 Tecnologias Utilizadas
+
+- [Vue.js 3 + Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/)
+- [Vue Router](https://router.vuejs.org/)
+- [Node.js](https://nodejs.org/)
+- [Vite SVG Loader](https://www.npmjs.com/package/vite-svg-loader)
 
 ---
 
 ## 📦 Comandos Disponíveis
 
-| Comando         | Descrição                         |
-|-----------------|-----------------------------------|
-| `npm install`   | Instala as dependências           |
-| `npm run dev`   | Inicia o servidor de desenvolvimento |
-| `npm run build` | Gera os arquivos para produção    |
+| Comando         | Descrição                              |
+|-----------------|------------------------------------------|
+| `npm install`   | Instala todas as dependências             |
+| `npm run dev`   | Inicia frontend e backend juntos          |
+| `npm run build` | Gera a versão de produção do frontend     |
 
 ---
 
-## 📡 Integração com Backend
+## 🔗 Backend
 
-O frontend se comunica com a API Flask através de requisições HTTP via `axios`.  
-Certifique-se de que a API esteja rodando em `http://localhost:5000`.
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- [Vue 3 + Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Axios](https://axios-http.com/)
-- [Node.js](https://nodejs.org/)
+Certifique-se de que o backend esteja disponível e corretamente configurado.  
+Para mais detalhes, consulte o [README do Backend](../backend/README.md).
