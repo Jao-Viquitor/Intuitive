@@ -1,9 +1,9 @@
 <template>
-  <div class="space-y-6 backdrop-grayscale-100 m-6 min-h-screen flex flex-col">
+  <div class="space-y-6 backdrop-grayscale-100 min-h-screen flex flex-col">
     <Header />
 
-    <main class="flex-1 space-y-6">
-      <div class="flex flex-col md:flex-row gap-2">
+    <main class="flex-1 space-y-6 m-16">
+      <div class="flex flex-wrap gap-4 items-center justify-center">
         <InputText
             v-model="termo"
             placeholder="Buscar operadora..."

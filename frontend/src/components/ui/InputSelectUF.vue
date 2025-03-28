@@ -2,9 +2,9 @@
   <select
       :value="modelValue"
       @change="$emit('update:modelValue', $event.target.value)"
-      class="px-4 py-2 border border-gray-300 focus:ring-slate-500 rounded-xl shadow-sm"
+      class="w-32 h-10 px-4 py-2 border border-gray-300 focus:ring-slate-500 rounded-xl shadow-sm"
   >
-    <option value="">UF</option>
+    <option value="">Estado</option>
     <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
   </select>
 </template>
