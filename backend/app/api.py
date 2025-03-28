@@ -2,6 +2,10 @@ from flask import request, Response
 import json
 from config import app, decimal_default
 from db import get_db_connection, carregar_consulta
+from flask_cors import CORS
+
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/api/top_operadoras', methods=['GET'])
 def top_operadoras():
@@ -46,7 +50,8 @@ def busca_operadoras():
     cursor.close()
     conexao.close()
 
-    return Response(json.dumps(resultados, ensure_ascii=False), content_type="application/json; charset=utf-8")
+    return Response(json.dumps(resultados, ensure_ascii=False, default=decimal_default),
+                    content_type="application/json; charset=utf-8")
 
 if __name__ == '__main__':
     app.run(debug=True)

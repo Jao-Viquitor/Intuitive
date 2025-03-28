@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 from decimal import Decimal
 
 load_dotenv()
-
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def decimal_default(obj):
     if isinstance(obj, Decimal):
