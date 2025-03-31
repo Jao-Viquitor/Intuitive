@@ -1,12 +1,14 @@
 # 📘 API Intuitive
 
-Este projeto implementa uma API REST em Python utilizando Flask, conectando-se ao banco de dados MySQL, para consultar e retornar dados das operadoras de planos de saúde cadastradas na ANS.
+Este projeto implementa uma **API REST** em **Python + Flask**, conectando-se a um banco de dados **PostgreSQL** (compatível com MySQL), para consulta e análise de dados de operadoras de planos de saúde fornecidos pela **ANS** (Agência Nacional de Saúde Suplementar).
+
+A API está publicada em:
+
+🔗 **https://intuitive-backend.onrender.com**
 
 ---
 
-## 🚀 Como Executar
-
-### 1. 📁 Estrutura do Projeto
+## 1. 📁 Estrutura do Projeto
 
 ```
 intuitive/
@@ -15,84 +17,101 @@ intuitive/
 │   │   ├── api.py
 │   │   ├── config.py
 │   │   └── db.py
-│   ├── docs/
-│   │   └── intuitiveCare.postman_collection.json
 │   ├── utils/
 │   │   └── preprocessamento.py
+│   ├── docs/
+│   │   └── intuitiveCare.postman_collection.json
 │   ├── requirements.txt
 │   └── .env
 ├── db/
-│    ├── consulta_ano.sql
-│    ├── consulta_trimestre.sql
-│    ├── consultas.sql
-│    ├── import_postgres.sql
-│    └── schema.sql
+│   ├── schema.sql
+│   ├── import_postgres.sql
+│   ├── consulta_ano.sql
+│   ├── consulta_trimestre.sql
 ```
 
 ---
 
-### 2. ⚙️ Configuração Inicial
+## 2. ⚙️ Configuração Inicial
 
-**Passo 1:** Crie um ambiente virtual Python
+### 2.1 Ambiente virtual
 
 ```bash
 python -m venv .venv
 ```
 
-Ative o ambiente virtual:
+Ative o ambiente:
 
 ```bash
 # Windows
 .venv\Scripts\activate
 
-# Linux ou Mac
+# Unix/Mac
 source .venv/bin/activate
 ```
 
-**Passo 2:** Instale as dependências necessárias
+### 2.2 Instalação de dependências
 
 ```bash
 pip install -r backend/requirements.txt
 ```
 
-**Passo 3:** Configure as variáveis de ambiente (`.env`):
+### 2.3 Configuração do `.env`
 
-1. Renomeie o arquivo `example.env` para `.env`
-2. Altere as configurações do `.env`
+Renomeie `example.env` para `.env` e configure com os dados do banco PostgreSQL:
 
 ```env
 DB_HOST=localhost
-DB_USER=root
+DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
 DB_DATABASE=db_intuitive
 ```
 
 ---
 
-### 3. 🛠️ Executar a API
+## 3. ▶️ Execução da API
+
+No diretório `backend/app`, execute:
 
 ```bash
-cd backend/app
 python api.py
 ```
 
-A API estará disponível em `http://localhost:5000`
+A aplicação estará disponível localmente em:
+
+```
+http://localhost:5000
+```
+
+Ou no ambiente de produção (Render):
+
+```
+https://intuitive-backend.onrender.com
+```
 
 ---
 
-## 🔗 Rotas Disponíveis
+## 4. 🔗 Endpoints da API
 
-### 🔹 **Busca textual de Operadoras**
+Todos os endpoints abaixo funcionam com a base:
 
-**GET** `/api/busca_operadoras`
+```
+https://intuitive-backend.onrender.com/api/
+```
+
+### 4.1 GET `/busca_operadoras`
+
+Busca textual de operadoras.
 
 **Parâmetros opcionais:**
-- `q` = termo de busca (nome, razão social ou CNPJ)
-- `uf` = estado (ex: SP)
-- `cidade` = nome da cidade (ex: Campinas)
+
+- `q`: termo (nome, razão social, CNPJ)
+- `uf`: estado (ex: `SP`)
+- `cidade`: cidade (ex: `Campinas`)
 
 **Exemplos:**
-```http
+
+```
 GET /api/busca_operadoras?q=amil
 GET /api/busca_operadoras?q=amil&uf=SP
 GET /api/busca_operadoras?q=12345678000100&cidade=São Paulo&uf=SP
@@ -100,20 +119,23 @@ GET /api/busca_operadoras?q=12345678000100&cidade=São Paulo&uf=SP
 
 ---
 
-### 🔹 **Top 10 Operadoras (Despesas)**
+### 4.2 GET `/top_operadoras`
 
-**GET** `/api/top_operadoras?periodo={ano|trimestre}&ano={ano}&trimestre={trimestre}&uf={uf}`
+Retorna as 10 operadoras com maiores despesas assistenciais.
 
 **Parâmetros obrigatórios:**
-- `periodo` = "ano" ou "trimestre"
-- `ano` = ano da análise (ex: 2024)
+
+- `periodo`: `ano` ou `trimestre`
+- `ano`: ex: `2024`
 
 **Parâmetros opcionais:**
-- `trimestre` = trimestre (ex: 4T)
-- `uf` = estado (ex: SP)
+
+- `trimestre`: ex: `4T`
+- `uf`: ex: `SP`
 
 **Exemplos:**
-```http
+
+```
 GET /api/top_operadoras?periodo=ano&ano=2024
 GET /api/top_operadoras?periodo=trimestre&ano=2024&trimestre=4T
 GET /api/top_operadoras?periodo=ano&ano=2024&uf=SP
@@ -121,9 +143,9 @@ GET /api/top_operadoras?periodo=ano&ano=2024&uf=SP
 
 ---
 
-## 📌 Exemplos de Retorno
+## 5. ✅ Exemplos de Retorno
 
-### ✅ **Busca Textual**
+### 5.1 Busca de operadoras
 
 ```json
 [
@@ -138,7 +160,7 @@ GET /api/top_operadoras?periodo=ano&ano=2024&uf=SP
 ]
 ```
 
-### ✅ **Top 10 Operadoras**
+### 5.2 Top 10 operadoras
 
 ```json
 [
@@ -155,20 +177,22 @@ GET /api/top_operadoras?periodo=ano&ano=2024&uf=SP
 
 ---
 
-## 📦 Coleção Postman
+## 6. 🧪 Testes com Postman
 
-A coleção Postman foi atualizada e contempla os parâmetros `uf` e `cidade` nos endpoints de busca e de top operadoras:
+Utilize a coleção pronta:
 
 📄 `backend/docs/intuitiveCare.postman_collection.json`
 
+Ela já inclui todos os endpoints e parâmetros.
+
 ---
 
-## 🛠️ Tecnologias utilizadas
+## 7. 🛠️ Tecnologias Utilizadas
 
-- **Python**
-- **Flask**
-- **MySQL**
-- **Postman**
+- **Python + Flask**
+- **PostgreSQL (Render)**
 - **dotenv**
-- **CORS**
-- **JSON + Decimal encoding**
+- **Pandas**
+- **Flask-CORS**
+- **psycopg2**
+- **Postman**

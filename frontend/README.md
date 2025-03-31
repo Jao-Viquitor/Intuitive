@@ -2,11 +2,14 @@
 
 Este é o frontend do sistema **Intuitive**, uma aplicação web construída com **Vue.js 3 + Vite + Tailwind CSS**, responsável por consultar e exibir dados públicos de operadoras de planos de saúde cadastradas na **ANS**, consumindo os dados expostos pela [API Intuitive](../backend/README.md).
 
+🟢 **Acesse em produção**:  
+🔗 https://intuitive-eta.vercel.app/
+
 ---
 
-## 🚀 Como Executar
+## 🚀 Como Executar Localmente
 
-### 1. 📁 Estrutura do Projeto
+### 📁 Estrutura do Projeto
 
 ```
 frontend/
@@ -40,79 +43,88 @@ frontend/
 
 ---
 
-### 2. ⚙️ Instalação e Execução
+### ⚙️ Instalação e Execução
 
-#### **Passo 1:** Acesse o diretório do frontend
+#### Passo 1: Acesse a pasta
 
 ```bash
 cd frontend
 ```
 
-#### **Passo 2:** Instale as dependências
+#### Passo 2: Instale as dependências
 
 ```bash
 npm install
 ```
 
-#### **Passo 3:** Execute Frontend + Backend juntos
+#### Passo 3: Execute a aplicação (frontend + backend)
 
 ```bash
 npm run dev
 ```
 
-Esse comando utiliza `concurrently` para:
-- Iniciar o backend Flask (`localhost:5000`)
-- Iniciar o frontend Vue (`localhost:5173`)
+Este comando executa simultaneamente:
+
+- ✅ Backend Flask (`http://localhost:5000`)
+- ✅ Frontend Vue com Vite (`http://localhost:5173`)
 
 ---
 
 ## 🧩 Funcionalidades
 
-### 🔎 **Busca de Operadoras**
+### 🔍 Busca de Operadoras
 
-- Campo de busca textual com autocomplete
+- Busca por nome, razão social ou CNPJ
 - Filtro opcional por estado (UF)
-- Cards reutilizáveis com razão social, nome fantasia, CNPJ e localização
+- Resultados exibidos em **cards reutilizáveis**
 
-### 📊 **Top 10 Operadoras por Despesa**
+### 📊 Top 10 Operadoras por Despesa
 
 - Filtros por **ano**, **trimestre** e **UF**
-- Resultados em ordem decrescente de despesas
-- Apresentação em cards com destaque para valores
+- Dados classificados por valor de despesa assistencial
+- Apresentação visual com destaque para os valores
 
 ---
 
-## 💅 Design e Experiência
+## 💅 Interface e Design
 
-- Componentização com **Vue 3 (SFC)**
-- Estilo moderno e responsivo com **Tailwind CSS**
-- Componentes reutilizáveis para inputs, botões e cards
-- Layout global com `Header` e `Footer` consistentes
+- Estilização com **Tailwind CSS**
+- Layout com **Header** e **Footer** global
+- Componentes reutilizáveis:
+    - Inputs (`InputText.vue`, `InputSelectUF.vue`)
+    - Botões (`ButtonPrimary`)
+    - Cards (`OperadoraCard.vue`)
+- Responsivo e acessível
 
 ---
 
 ## 🧪 Tecnologias Utilizadas
 
-- [Vue.js 3 + Vite](https://vitejs.dev/)
+- [Vue 3 + Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Axios](https://axios-http.com/)
 - [Vue Router](https://router.vuejs.org/)
-- [Node.js](https://nodejs.org/)
 - [Vite SVG Loader](https://www.npmjs.com/package/vite-svg-loader)
+- [Vercel (Deploy)](https://vercel.com)
 
 ---
 
 ## 📦 Comandos Disponíveis
 
-| Comando         | Descrição                              |
-|-----------------|------------------------------------------|
-| `npm install`   | Instala todas as dependências             |
-| `npm run dev`   | Inicia frontend e backend juntos          |
-| `npm run build` | Gera a versão de produção do frontend     |
+| Comando         | Descrição                                   |
+|-----------------|----------------------------------------------|
+| `npm install`   | Instala as dependências do projeto           |
+| `npm run dev`   | Executa o frontend e o backend juntos        |
+| `npm run build` | Gera os arquivos otimizados para produção    |
 
 ---
 
-## 🔗 Backend
+## 🔗 Integração com o Backend
 
-Certifique-se de que o backend esteja disponível e corretamente configurado.  
-Para mais detalhes, consulte o [README do Backend](../backend/README.md).
+A aplicação consome a [API Intuitive](../backend/README.md), que deve estar disponível na URL:
+
+```
+https://intuitive-backend.onrender.com
+```
+
+A comunicação é feita com `axios`, através da instância centralizada no arquivo `src/services/api.js`.

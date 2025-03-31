@@ -1,14 +1,24 @@
 # 🩺 Intuitive Care — Análise de Operadoras de Saúde (ANS)
 
-O **Intuitive Care** é uma plataforma completa de análise e visualização de dados públicos de operadoras de planos de saúde registrados na **ANS** (Agência Nacional de Saúde Suplementar). A aplicação é composta por:
+O **Intuitive Care** é uma plataforma fullstack para análise, consulta e visualização de dados públicos de operadoras de planos de saúde registradas na **ANS (Agência Nacional de Saúde Suplementar)**.
 
-- 🔹 **Backend (API REST)** em **Flask + MySQL**
-- 🔹 **Frontend SPA** em **Vue 3 + Tailwind + Vite**
-- 🔹 Processamento de dados a partir de arquivos públicos fornecidos pela ANS
+A aplicação é composta por:
+
+- 🔹 **Backend**: API REST em **Flask** com conexão **PostgreSQL**
+- 🔹 **Frontend**: SPA em **Vue.js 3 + Vite + Tailwind**
+- 🔹 Pré-processamento de dados via **Pandas**
+- 🔹 Integração com arquivos públicos da ANS
 
 ---
 
-## 📂 Estrutura do Projeto
+## 🌐 Acesso em Produção
+
+- 🔸 Frontend: [https://intuitive-eta.vercel.app](https://intuitive-eta.vercel.app)
+- 🔸 API Backend: [https://intuitive-backend.onrender.com](https://intuitive-backend.onrender.com)
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```
 intuitive/
@@ -31,8 +41,7 @@ intuitive/
 │   │   ├── router/
 │   │   └── services/
 │   ├── index.html
-│   ├── package.json
-│   └── tailwind.config.js
+│   └── package.json
 ├── dados/
 │   ├── demonstracoes_contabeis/
 │   └── operadoras_ativas/
@@ -45,37 +54,39 @@ intuitive/
 
 ---
 
-## 📥 Preparação de Dados (Obrigatório)
-
-Antes de rodar o sistema, baixe os dados públicos da ANS:
+## 📥 Preparação de Dados
 
 ### 1. 📊 Demonstrativos Contábeis
 
-Baixe os arquivos `.csv` dos últimos 2 anos (1T a 4T) em:
+Baixe os arquivos `.csv` dos últimos 2 anos em:
 
-🔗 [https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/](https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/)
+🔗 https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/
 
-Coloque em:
+Coloque os arquivos em:
 
 ```
 dados/demonstracoes_contabeis/
 ```
 
-### 2. 🏢 Cadastro das Operadoras Ativas
+---
 
-Baixe o `Relatorio_cadop.csv` em:
+### 2. 🏢 Operadoras Ativas
 
-🔗 [https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/](https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/)
+Baixe o arquivo `Relatorio_cadop.csv`:
 
-Coloque em:
+🔗 https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/
+
+E coloque em:
 
 ```
 dados/operadoras_ativas/
 ```
 
-### 3. 🧹 Executar Pré-processamento
+---
 
-Execute o script para preparar os dados para importação:
+### 3. 🧹 Pré-processamento
+
+Execute o script para gerar os dados consolidados:
 
 ```bash
 python backend/utils/preprocessamento.py
@@ -83,15 +94,15 @@ python backend/utils/preprocessamento.py
 
 ---
 
-## 🚀 Executando o Projeto
+## 🚀 Execução Local
 
-### ✅ Backend
+### Backend
 
-1. Ative o ambiente virtual:
+1. Crie e ative o ambiente virtual:
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\activate  # Windows
 ```
 
 2. Instale as dependências:
@@ -100,76 +111,72 @@ python -m venv .venv
 pip install -r backend/requirements.txt
 ```
 
-3. Configure o `.env` (copie de `example.env` e ajuste):
+3. Configure o arquivo `.env` com as credenciais do banco PostgreSQL:
 
 ```env
 DB_HOST=localhost
-DB_USER=root
+DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
 DB_DATABASE=db_intuitive
 ```
 
-4. Execute os scripts SQL no seu MySQL:
+4. Execute os scripts SQL:
 
 ```sql
-SOURCE db/schema.sql;
-SOURCE db/import_postgres.sql;
+-- No PostgreSQL
+\i db/schema.sql
+\i db/import_postgres.sql
 ```
 
 ---
 
-### ✅ Frontend + Backend (simultâneo)
+### Frontend + Backend
 
-1. Entre na pasta `frontend` e instale as dependências:
+Na pasta do frontend:
 
 ```bash
 cd frontend
 npm install
-```
-
-2. Rode tudo com:
-
-```bash
 npm run dev
 ```
 
-Esse comando executa:
-- O **servidor Flask** (`http://localhost:5000`)
-- O **frontend Vue** (`http://localhost:5173`)
+Esse comando usa o `concurrently` para rodar o backend (Flask) e o frontend (Vite) juntos.
 
 ---
 
-## 🧩 Funcionalidades
+## 🔗 Funcionalidades
 
-### 🔎 Busca por Operadora
-- Busca por razão social, nome fantasia ou CNPJ
-- Filtro adicional por estado (UF)
-- Lista com cartões personalizados e responsivos
+### 🔍 Busca de Operadoras
+
+- Termo de busca: nome, razão social ou CNPJ
+- Filtros opcionais: estado (UF), cidade
+- Resultados exibidos em cards estilizados
 
 ### 📊 Top 10 Operadoras por Despesa
-- Consulta por ano ou trimestre
-- Filtro por estado (UF)
-- Valores formatados, layout limpo e responsivo
+
+- Filtro por ano ou trimestre
+- Filtro opcional por estado (UF)
+- Apresentação em cards com destaque para os valores
 
 ---
 
 ## 📦 Tecnologias Utilizadas
 
-| Camada     | Tecnologias                                     |
-|------------|-------------------------------------------------|
-| Backend    | Python, Flask, MySQL, python-dotenv, CORS       |
-| Frontend   | Vue 3, Vite, Tailwind CSS, Axios, Vue Router    |
-| Dados      | CSVs da ANS, processamento com Pandas           |
-| Utilitários| Postman, concurrently, dotenv, Vite plugins     |
+| Camada      | Tecnologias                                 |
+|-------------|---------------------------------------------|
+| Backend     | Flask, PostgreSQL, psycopg2, dotenv, CORS   |
+| Frontend    | Vue 3, Vite, Tailwind CSS, Axios, Vue Router|
+| Processamento | Python, Pandas                           |
+| Deploy      | Render (backend + banco), Vercel (frontend) |
 
 ---
 
-## 📫 Testes via Postman
+## 🧪 Testes via Postman
 
-Uma coleção já pronta está disponível em:
+Uma coleção pronta está disponível em:
 
 ```
 backend/docs/intuitiveCare.postman_collection.json
 ```
 
-Importe no Postman e teste todas as rotas da API rapidamente.
+Inclui exemplos com parâmetros `q`, `uf`, `cidade`, `ano`, `trimestre`.
