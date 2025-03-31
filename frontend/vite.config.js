@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import svgLoader from 'vite-svg-loader'
 
 export default defineConfig({
+  base: './',
   plugins: [
     vue(),
     svgLoader(),
