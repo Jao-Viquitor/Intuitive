@@ -38,7 +38,7 @@ intuitive/
 │   └── operadoras_ativas/
 ├── db/
 │   ├── schema.sql
-│   ├── import.sql
+│   ├── import_postgres.sql
 │   ├── consulta_ano.sql
 │   └── consulta_trimestre.sql
 ```
@@ -113,7 +113,7 @@ DB_DATABASE=db_intuitive
 
 ```sql
 SOURCE db/schema.sql;
-SOURCE db/import.sql;
+SOURCE db/import_postgres.sql;
 ```
 
 ---

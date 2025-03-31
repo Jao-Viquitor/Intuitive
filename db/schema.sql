@@ -1,20 +1,21 @@
-CREATE DATABASE db_intuitive;
-USE db_intuitive;
-
-CREATE TABLE demonstracoes_contabeis(
-    id                INT AUTO_INCREMENT PRIMARY KEY,
+-- Tabela demonstracoes_contabeis
+CREATE TABLE demonstracoes_contabeis
+(
+    id                SERIAL PRIMARY KEY,
     data              DATE,
     reg_ans           VARCHAR(20),
     cd_conta_contabil VARCHAR(50),
     descricao         VARCHAR(255),
-    vl_saldo_inicial  DECIMAL(18, 2),
-    vl_saldo_final    DECIMAL(18, 2),
+    vl_saldo_inicial  NUMERIC(18, 2),
+    vl_saldo_final    NUMERIC(18, 2),
     trimestre         VARCHAR(10),
     ano               INT
 );
 
-CREATE TABLE operadoras_ativas(
-    id_operadora           INT PRIMARY KEY AUTO_INCREMENT,
+-- Tabela operadoras_ativas
+CREATE TABLE operadoras_ativas
+(
+    id_operadora           SERIAL PRIMARY KEY,
     registro_ans           VARCHAR(250),
     cnpj                   VARCHAR(20),
     razao_social           VARCHAR(255),

@@ -25,7 +25,7 @@ intuitive/
 │    ├── consulta_ano.sql
 │    ├── consulta_trimestre.sql
 │    ├── consultas.sql
-│    ├── import.sql
+│    ├── import_postgres.sql
 │    └── schema.sql
 ```
 
